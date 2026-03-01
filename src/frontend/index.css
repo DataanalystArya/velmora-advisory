@@ -1,0 +1,290 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Bundled fonts via @font-face ─── */
+/* Note: font files not present in /assets/fonts/ — using Google Fonts CDN is unavailable
+   in deployed apps. Using system font stack with proper naming for graceful degradation. */
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Velmora Brand Colors */
+    /* Navy: #0A1628 → oklch(0.17 0.04 250) */
+    --navy: 0.17 0.04 250;
+    /* Navy light: #1a2d4a */
+    --navy-light: 0.22 0.05 250;
+    /* Gold: #C9A84C → oklch(0.72 0.12 80) */
+    --gold: 0.72 0.12 80;
+    /* Gold dark: #A88935 */
+    --gold-dark: 0.62 0.12 78;
+    /* Emerald: #1E7C5A → oklch(0.52 0.1 165) */
+    --emerald: 0.52 0.1 165;
+    /* Emerald light */
+    --emerald-light: 0.62 0.1 165;
+    /* Backgrounds */
+    --white: 1 0 0;
+    --grey-light: 0.97 0.004 250;
+    --grey-mid: 0.93 0.004 250;
+
+    /* shadcn semantic tokens */
+    --background: 1 0 0;
+    --foreground: 0.17 0.04 250;
+    --card: 1 0 0;
+    --card-foreground: 0.17 0.04 250;
+    --popover: 1 0 0;
+    --popover-foreground: 0.17 0.04 250;
+    --primary: 0.17 0.04 250;
+    --primary-foreground: 1 0 0;
+    --secondary: 0.97 0.004 250;
+    --secondary-foreground: 0.17 0.04 250;
+    --muted: 0.97 0.004 250;
+    --muted-foreground: 0.52 0.02 250;
+    --accent: 0.72 0.12 80;
+    --accent-foreground: 0.17 0.04 250;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.92 0.008 250;
+    --input: 0.92 0.008 250;
+    --ring: 0.72 0.12 80;
+    --chart-1: 0.72 0.12 80;
+    --chart-2: 0.52 0.1 165;
+    --chart-3: 0.17 0.04 250;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.17 0.04 250;
+    --sidebar-foreground: 1 0 0;
+    --sidebar-primary: 0.72 0.12 80;
+    --sidebar-primary-foreground: 0.17 0.04 250;
+    --sidebar-accent: 0.22 0.05 250;
+    --sidebar-accent-foreground: 1 0 0;
+    --sidebar-border: 0.25 0.04 250;
+    --sidebar-ring: 0.72 0.12 80;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  .font-body {
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  }
+
+  /* ─── Scroll reveal ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+  .reveal-delay-6 { transition-delay: 0.6s; }
+
+  /* ─── Gold gradient text ─── */
+  .text-gold-gradient {
+    background: linear-gradient(
+      115deg,
+      oklch(0.78 0.14 82) 0%,
+      oklch(0.72 0.12 80) 45%,
+      oklch(0.82 0.10 85) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ─── Gold shimmer on hover ─── */
+  @keyframes gold-shimmer {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  .text-gold-shimmer {
+    background: linear-gradient(
+      115deg,
+      oklch(0.72 0.12 80) 20%,
+      oklch(0.88 0.16 84) 40%,
+      oklch(0.82 0.13 80) 60%,
+      oklch(0.72 0.12 80) 80%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gold-shimmer 4s linear infinite;
+  }
+
+  /* ─── Premium card elevation system ─── */
+  .card-premium {
+    background: white;
+    border: 1px solid oklch(0.91 0.01 250);
+    border-radius: 14px;
+    /* resting: warm-navy-tinted layered depth */
+    box-shadow:
+      0 1px 2px rgba(10, 22, 40, 0.04),
+      0 4px 12px rgba(10, 22, 40, 0.06),
+      0 12px 32px rgba(10, 22, 40, 0.04);
+    transition: box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.35s ease;
+  }
+
+  .card-premium:hover {
+    /* lifted: deeper shadow + warm gold inset light-catch at top edge */
+    box-shadow:
+      0 0 0 1px oklch(0.72 0.12 80 / 0.12),
+      0 4px 16px rgba(10, 22, 40, 0.08),
+      0 16px 40px rgba(10, 22, 40, 0.12),
+      0 32px 64px rgba(10, 22, 40, 0.08),
+      inset 0 1px 0 oklch(0.72 0.12 80 / 0.18);
+    transform: translateY(-5px);
+    border-color: oklch(0.88 0.02 250);
+  }
+
+  /* ─── Section header pill eyebrow ─── */
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.875rem;
+    border-radius: 999px;
+    background: oklch(0.72 0.12 80 / 0.1);
+    border: 1px solid oklch(0.72 0.12 80 / 0.25);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: oklch(0.58 0.11 78);
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    margin-bottom: 1.25rem;
+  }
+
+  .section-eyebrow-light {
+    background: oklch(1 0 0 / 0.08);
+    border-color: oklch(0.72 0.12 80 / 0.3);
+    color: oklch(0.82 0.10 82);
+  }
+
+  /* ─── Legacy section-divider (kept for backward compat but replaced visually) ─── */
+  .section-divider {
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, oklch(0.72 0.12 80), oklch(0.82 0.10 85));
+    border-radius: 2px;
+    margin-bottom: 1rem;
+  }
+
+  /* ─── Hero glass button ─── */
+  .btn-hero-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2.25rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    background: oklch(0.72 0.12 80);
+    color: oklch(0.15 0.04 250);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow:
+      0 1px 0 oklch(0.88 0.14 84) inset,
+      0 4px 20px oklch(0.72 0.12 80 / 0.4),
+      0 8px 32px oklch(0.72 0.12 80 / 0.2);
+    min-width: 200px;
+  }
+
+  .btn-hero-primary:hover {
+    background: oklch(0.76 0.13 82);
+    box-shadow:
+      0 1px 0 oklch(0.9 0.15 84) inset,
+      0 6px 28px oklch(0.72 0.12 80 / 0.55),
+      0 12px 40px oklch(0.72 0.12 80 / 0.3);
+    transform: translateY(-1px);
+  }
+
+  .btn-hero-primary:active {
+    transform: scale(0.98);
+  }
+
+  .btn-hero-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2.25rem;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    font-family: 'Plus Jakarta Sans', 'Segoe UI', system-ui, sans-serif;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    /* Glassmorphism */
+    background: oklch(1 0 0 / 0.07);
+    border: 1px solid oklch(1 0 0 / 0.28);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.15);
+    min-width: 200px;
+  }
+
+  .btn-hero-secondary:hover {
+    background: oklch(1 0 0 / 0.12);
+    border-color: oklch(1 0 0 / 0.42);
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.22);
+    transform: translateY(-1px);
+  }
+
+  .btn-hero-secondary:active {
+    transform: scale(0.98);
+  }
+
+  /* ─── Section reveal (scroll-triggered) ─── */
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
